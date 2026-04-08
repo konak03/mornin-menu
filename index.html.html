@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mornin' — Menü</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #1A1A1A;
+  --offwhite: #F5F2EE;
+  --gray: #888888;
+  --gold: #E8C96B;
+  --gold-dark: #7a6020;
+  --border: rgba(26,26,26,0.10);
+}
+
+html { height: 100%; }
+body {
+  background: var(--offwhite);
+  color: var(--black);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ══════════════════════
+   SCROLL LAYOUT
+══════════════════════ */
+html, body {
+  height: 100%; overflow: hidden;
+}
+#scroll-root {
+  height: 100dvh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+#scroll-root::-webkit-scrollbar { display: none; }
+
+/* ══════════════════════
+   COVER
+══════════════════════ */
+#cover {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative; height: 100dvh;
+  background: var(--black);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 60px 32px 100px;
+  overflow: hidden;
+}
+#cover::before {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -60%);
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(232,201,107,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+#cover::after {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px; background: var(--gold);
+}
+.cover-logo-wrap { margin-bottom: 28px; animation: riseFade 1.1s cubic-bezier(.22,1,.36,1) both; }
+.cover-logo-wrap svg { width: 72px; height: 42px; }
+.cover-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(52px, 14vw, 76px); color: var(--offwhite);
+  letter-spacing: -0.02em; line-height: 1;
+  animation: riseFade 1.1s 0.1s cubic-bezier(.22,1,.36,1) both;
+}
+.cover-sub {
+  font-size: 11px; color: var(--gray);
+  letter-spacing: 0.28em; text-transform: uppercase; margin-top: 14px;
+  animation: riseFade 1.1s 0.2s cubic-bezier(.22,1,.36,1) both;
+}
+.cover-divider {
+  width: 40px; height: 1px; background: var(--gold); margin: 32px auto;
+  animation: riseFade 1.1s 0.3s cubic-bezier(.22,1,.36,1) both;
+}
+.cover-tagline {
+  font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: 18px; color: rgba(245,242,238,0.5); line-height: 1.5; max-width: 260px;
+  animation: riseFade 1.1s 0.35s cubic-bezier(.22,1,.36,1) both;
+}
+.cover-cta {
+  position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  animation: riseFade 1.1s 0.5s cubic-bezier(.22,1,.36,1) both;
+  cursor: pointer; background: none; border: none; padding: 0;
+}
+.cover-cta-text {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold);
+}
+.cover-cta-arrow {
+  width: 28px; height: 28px;
+  border: 1px solid rgba(232,201,107,0.35); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  animation: bounce 2s 1.5s ease-in-out infinite;
+}
+.cover-cta-arrow svg { width: 12px; height: 12px; }
+.cover-info {
+  position: absolute; bottom: 48px; right: 28px;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+}
+.cover-info span { font-size: 9px; color: rgba(136,136,136,0.5); letter-spacing: 0.1em; }
+
+@keyframes riseFade {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+/* ══════════════════════
+   MENU PAGE
+══════════════════════ */
+#menu-page {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100dvh;
+  overflow-y: auto;
+  background: var(--offwhite);
+}
+
+header {
+  background: var(--black); padding: 28px 24px 22px;
+  text-align: center; position: relative;
+}
+header::after {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px; background: var(--gold);
+}
+.header-inner { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.header-logo svg { width: 36px; height: 21px; }
+.header-brand {
+  font-family: 'DM Serif Display', serif; font-size: 28px;
+  color: var(--offwhite); letter-spacing: -0.01em; line-height: 1;
+}
+.header-back {
+  position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  color: var(--gray); font-size: 11px; letter-spacing: 0.05em; padding: 8px 4px;
+}
+.header-back svg { width: 14px; height: 14px; }
+
+.tabs {
+  display: flex; background: var(--black);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  position: sticky; top: 0; z-index: 10;
+  overflow-x: auto; scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: 1; min-width: 72px; padding: 13px 4px;
+  font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.11em; text-transform: uppercase;
+  color: var(--gray); background: none; border: none;
+  cursor: pointer; transition: color 0.25s; white-space: nowrap; position: relative;
+}
+.tab::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 50%; right: 50%; height: 2px; background: var(--gold);
+  transition: left 0.35s cubic-bezier(.22,1,.36,1), right 0.35s cubic-bezier(.22,1,.36,1);
+}
+.tab.active { color: var(--gold); }
+.tab.active::after { left: 0; right: 0; }
+
+.section {
+  display: none; padding: 0 0 100px; max-width: 480px; margin: 0 auto;
+  transition: opacity 0.25s ease, transform 0.28s cubic-bezier(.22,1,.36,1);
+}
+.section.active { display: block; opacity: 1; transform: translateY(0); }
+.section.tab-exit { opacity: 0; transform: translateY(8px); pointer-events: none; }
+.section.tab-enter { opacity: 0; transform: translateY(12px); }
+
+/* SECTION HERO */
+.section-hero {
+  position: relative; height: 130px; background: var(--black);
+  display: flex; align-items: flex-end; padding: 0 20px 18px; overflow: hidden;
+}
+.section-hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0.18; filter: grayscale(60%);
+}
+.section-hero-title {
+  font-family: 'DM Serif Display', serif; font-size: 32px;
+  color: var(--offwhite); letter-spacing: -0.01em; line-height: 1; position: relative; z-index: 1;
+}
+.section-hero-sub {
+  font-size: 11px; color: var(--gray); letter-spacing: 0.06em; margin-top: 4px; position: relative; z-index: 1;
+}
+.section-hero-content { display: flex; flex-direction: column; }
+.section-hero-gold-line {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, transparent 80%);
+}
+
+.section-body { padding: 0 20px; }
+.section-intro {
+  font-size: 12px; color: var(--gray); line-height: 1.6;
+  margin: 16px 0 4px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+
+/* ══════════════════════
+   MENU ITEM — tıklanabilir, görselsiz
+══════════════════════ */
+.item {
+  display: flex; align-items: center;
+  gap: 12px; padding: 15px 6px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer; border-radius: 6px;
+  margin: 0 -6px;
+  transition: background 0.15s;
+  position: relative;
+}
+.item:last-of-type { border-bottom: none; }
+.item:active { background: rgba(26,26,26,0.04); }
+
+.item-info { flex: 1; min-width: 0; }
+.item-name {
+  font-family: 'DM Serif Display', serif; font-size: 16px;
+  color: var(--black); margin-bottom: 3px; line-height: 1.2;
+}
+.item-desc-short {
+  font-size: 11.5px; color: var(--gray); line-height: 1.45;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px;
+}
+.item-meta {
+  display: flex; align-items: center; gap: 6px; margin-top: 6px; flex-wrap: wrap;
+}
+.tag {
+  font-size: 9px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 2.5px 7px; border-radius: 20px;
+  background: rgba(26,26,26,0.07); color: var(--gray);
+}
+.tag.vegan   { background: rgba(99,153,34,0.10); color: #3B6D11; }
+.tag.new     { background: rgba(232,201,107,0.22); color: var(--gold-dark); }
+.tag.popular { background: rgba(26,26,26,0.07); color: var(--black); }
+.tag.spicy   { background: rgba(210,60,40,0.09); color: #8B2A1A; }
+.item-kcal {
+  font-size: 10px; color: var(--gray); display: flex; align-items: center; gap: 3px;
+}
+.item-kcal::before {
+  content: ''; display: inline-block; width: 3px; height: 3px;
+  border-radius: 50%; background: rgba(26,26,26,0.2); flex-shrink: 0;
+}
+.item-right {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+  flex-shrink: 0;
+}
+.item-price {
+  font-family: 'DM Serif Display', serif; font-size: 16px;
+  color: var(--black); white-space: nowrap;
+}
+.item-chevron { opacity: 0.25; }
+.item-chevron svg { width: 14px; height: 14px; display: block; }
+
+/* stagger */
+.section.active .item,
+.section.active .coffee-item,
+.section.active .nata-item {
+  animation: itemRise 0.38s cubic-bezier(.22,1,.36,1) both;
+}
+.section.active .item:nth-child(1),.section.active .coffee-item:nth-child(1),.section.active .nata-item:nth-child(1){animation-delay:.04s}
+.section.active .item:nth-child(2),.section.active .coffee-item:nth-child(2),.section.active .nata-item:nth-child(2){animation-delay:.09s}
+.section.active .item:nth-child(3),.section.active .coffee-item:nth-child(3),.section.active .nata-item:nth-child(3){animation-delay:.14s}
+.section.active .item:nth-child(4),.section.active .coffee-item:nth-child(4),.section.active .nata-item:nth-child(4){animation-delay:.18s}
+.section.active .item:nth-child(5),.section.active .coffee-item:nth-child(5),.section.active .nata-item:nth-child(5){animation-delay:.22s}
+.section.active .item:nth-child(6),.section.active .coffee-item:nth-child(6),.section.active .nata-item:nth-child(6){animation-delay:.26s}
+.section.active .item:nth-child(n+7),.section.active .coffee-item:nth-child(n+7),.section.active .nata-item:nth-child(n+7){animation-delay:.30s}
+@keyframes itemRise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* COFFEE ITEM */
+.coffee-item {
+  padding: 15px 6px; border-bottom: 1px solid var(--border);
+  cursor: pointer; border-radius: 6px;
+  margin: 0 -6px;
+  transition: background 0.15s;
+}
+.coffee-item:last-of-type { border-bottom: none; }
+.coffee-item:active { background: rgba(26,26,26,0.04); }
+.coffee-top { display: flex; align-items: center; gap: 12px; }
+.coffee-sizes {
+  display: flex; gap: 8px; margin-top: 10px; padding-left: 0;
+}
+.size-chip {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: rgba(26,26,26,0.05); border-radius: 8px; padding: 5px 12px; min-width: 50px;
+}
+.size-label { font-size: 9px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+.size-price { font-family: 'DM Serif Display', serif; font-size: 13px; color: var(--black); }
+
+/* NATA ITEM */
+.nata-item { padding: 10px 0; border-bottom: 1px solid var(--border); }
+.nata-item:last-of-type { border-bottom: none; }
+.nata-card {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(232,201,107,0.06); border: 1px solid rgba(232,201,107,0.18);
+  border-radius: 12px; padding: 14px; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.nata-card:active { background: rgba(232,201,107,0.12); }
+.nata-info { flex: 1; min-width: 0; }
+.nata-name { font-family: 'DM Serif Display', serif; font-size: 15.5px; color: var(--black); margin-bottom: 2px; }
+.nata-desc { font-size: 11px; color: var(--gray); line-height: 1.45; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nata-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 7px; }
+.nata-price { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--black); }
+.nata-kcal { font-size: 10px; color: var(--gray); }
+
+.allergen-note {
+  margin-top: 24px; padding: 12px 14px;
+  background: rgba(26,26,26,0.04); border-radius: 8px; border-left: 3px solid var(--gold);
+}
+.allergen-note p { font-size: 11px; color: var(--gray); line-height: 1.6; }
+
+footer {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--offwhite); border-top: 1px solid var(--border);
+  padding: 11px 20px; text-align: center;
+}
+.footer-text { font-size: 10px; color: var(--gray); letter-spacing: 0.04em; }
+
+/* ══════════════════════
+   MODAL
+══════════════════════ */
+#modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(26,26,26,0); backdrop-filter: blur(0px);
+  display: none; align-items: flex-end; justify-content: center;
+  transition: background 0.3s, backdrop-filter 0.3s;
+}
+#modal-overlay.open {
+  display: flex;
+  background: rgba(26,26,26,0.55);
+  backdrop-filter: blur(4px);
+}
+
+#modal {
+  background: var(--offwhite);
+  border-radius: 20px 20px 0 0;
+  width: 100%; max-width: 480px;
+  max-height: 88dvh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.42s cubic-bezier(.22,1,.36,1);
+  position: relative;
+}
+#modal-overlay.open #modal { transform: translateY(0); }
+
+.modal-drag-bar {
+  width: 36px; height: 4px; border-radius: 2px;
+  background: rgba(26,26,26,0.15);
+  margin: 12px auto 0;
+}
+
+/* photo area */
+.modal-photo {
+  width: 100%; height: 240px;
+  background: var(--black); overflow: hidden; position: relative;
+  margin-top: 8px;
+}
+.modal-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; transition: opacity 0.4s;
+}
+.modal-photo-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+}
+.modal-photo-placeholder svg { width: 36px; height: 36px; opacity: 0.18; }
+.modal-photo-placeholder span {
+  font-size: 10px; color: rgba(136,136,136,0.5);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+/* gold bar at bottom of photo */
+.modal-photo::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, transparent 70%);
+}
+
+.modal-body { padding: 20px 22px 32px; }
+.modal-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.modal-title {
+  font-family: 'DM Serif Display', serif; font-size: 24px;
+  color: var(--black); line-height: 1.15; margin-bottom: 8px;
+}
+.modal-desc { font-size: 13px; color: var(--gray); line-height: 1.65; margin-bottom: 18px; }
+.modal-meta-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.modal-price { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--black); }
+.modal-kcal-block { text-align: right; }
+.modal-kcal-val { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--black); }
+.modal-kcal-lbl { font-size: 10px; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 1px; }
+
+/* coffee sizes in modal */
+.modal-sizes { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.modal-size-chip {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: rgba(26,26,26,0.05); border-radius: 10px; padding: 8px 18px; flex: 1; min-width: 70px;
+}
+.modal-size-label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+.modal-size-price { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--black); }
+
+.modal-close {
+  position: absolute; top: 16px; right: 18px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(26,26,26,0.08); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-close svg { width: 14px; height: 14px; }
+
+
+</style>
+</head>
+<body>
+
+<div id="scroll-root">
+<!-- ══ COVER ══ -->
+<div id="cover">
+  <div class="cover-logo-wrap">
+    <svg viewBox="0 0 96 56" fill="none">
+      <line x1="48" y1="2"  x2="48" y2="12" stroke="#E8C96B" stroke-width="3" stroke-linecap="round"/>
+      <line x1="72" y1="8"  x2="66" y2="16" stroke="#E8C96B" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="8"  x2="30" y2="16" stroke="#E8C96B" stroke-width="3" stroke-linecap="round"/>
+      <line x1="88" y1="28" x2="79" y2="28" stroke="#E8C96B" stroke-width="3" stroke-linecap="round"/>
+      <line x1="8"  y1="28" x2="17" y2="28" stroke="#E8C96B" stroke-width="3" stroke-linecap="round"/>
+      <path d="M18 36 A30 30 0 0 1 78 36" stroke="#E8C96B" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <line x1="8" y1="36" x2="88" y2="36" stroke="#E8C96B" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="cover-title">Mornin'</div>
+  <div class="cover-sub">Bowl · Sandwich · Coffee</div>
+  <div class="cover-divider"></div>
+  <div class="cover-tagline">Her gün iyi bir başlangıç hak eder.</div>
+  <button class="cover-cta" onclick="openMenu()">
+    <span class="cover-cta-text">Menüyü Görüntüle</span>
+    <div class="cover-cta-arrow">
+      <svg viewBox="0 0 12 12" fill="none"><path d="M6 2.5V9.5M6 9.5L3 6.5M6 9.5L9 6.5" stroke="#E8C96B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </button>
+  <div class="cover-info"><span>İSTANBUL</span><span>2025</span></div>
+</div>
+
+<!-- ══ MENU PAGE ══ -->
+<div id="menu-page">
+  <header>
+    <button class="header-back" onclick="goBack()">
+      <svg viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="#888888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Geri
+    </button>
+    <div class="header-inner">
+      <div class="header-logo">
+        <svg viewBox="0 0 96 56" fill="none">
+          <line x1="48" y1="2"  x2="48" y2="12" stroke="#E8C96B" stroke-width="3" stroke-linecap="round"/>
+          <line x1="72" y1="8"  x2="66" y2="16" stroke="#E8C96B" stroke-width="3" stroke-linecap="round"/>
+          <line x1="24" y1="8"  x2="30" y2="16" stroke="#E8C96B" stroke-width="3" stroke-linecap="round"/>
+          <line x1="88" y1="28" x2="79" y2="28" stroke="#E8C96B" stroke-width="3" stroke-linecap="round"/>
+          <line x1="8"  y1="28" x2="17" y2="28" stroke="#E8C96B" stroke-width="3" stroke-linecap="round"/>
+          <path d="M18 36 A30 30 0 0 1 78 36" stroke="#E8C96B" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <line x1="8" y1="36" x2="88" y2="36" stroke="#E8C96B" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="header-brand">Mornin'</div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" onclick="showSection('sandwich',this)">Sandwich</button>
+    <button class="tab"        onclick="showSection('bowl',this)">Bowl</button>
+    <button class="tab"        onclick="showSection('sides',this)">Yan Ürünler</button>
+    <button class="tab"        onclick="showSection('nata',this)">Tatlı</button>
+    <button class="tab"        onclick="showSection('coffee',this)">Coffee</button>
+  </nav>
+
+  <!-- ══ SANDWICH ══ -->
+  <section id="sandwich" class="section active">
+    <div class="section-hero">
+      <div class="section-hero-content">
+        <div class="section-hero-title">Sandwich</div>
+        <div class="section-hero-sub">Günlük taze fırın ekmeği</div>
+      </div>
+      <div class="section-hero-gold-line"></div>
+    </div>
+    <div class="section-body">
+      <p class="section-intro">Ekmeğimiz her sabah fırından gelir. Sandviçler taze, sıcak ve doyurucudur.</p>
+
+      <div class="item" onclick="openModal(this)
+"
+        data-name="Bacon Egg Cheese Sandwich"
+        data-desc="Çıtır bacon, sahanda yumurta, eritilmiş çedar, karamelize soğan, ev yapımı sriracha mayo, brioche ekmek"
+        data-price="₺300" data-kcal="620"
+        data-tags="popular"
+        data-img="">
+        <div class="item-info">
+          <div class="item-name">Bacon Egg Cheese Sandwich</div>
+          <div class="item-desc-short">Çıtır bacon, sahanda yumurta, eritilmiş çedar...</div>
+          <div class="item-meta"><span class="tag popular">En Çok Sipariş</span><span class="item-kcal">620 kcal</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price">₺300</div>
+          <div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Avocado Smash Sandwich"
+        data-desc="Ezme avokado, limon, pul biber, cherry domates, feta peyniri, taze fesleğen, ekşi maya ekmek"
+        data-price="₺310" data-kcal="480"
+        data-tags="vegan,popular"
+        data-img="">
+        <div class="item-info">
+          <div class="item-name">Avocado Smash Sandwich</div>
+          <div class="item-desc-short">Ezme avokado, limon, pul biber, cherry domates...</div>
+          <div class="item-meta"><span class="tag vegan">Vejetaryen</span><span class="tag popular">Popüler</span><span class="item-kcal">480 kcal</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price">₺310</div>
+          <div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Truffle Mushroom Sandwich"
+        data-desc="Sote karışık mantar, trüf yağı, ricotta, taze kekik, roka, parmesan, ciabatta ekmek"
+        data-price="₺360" data-kcal="510"
+        data-tags="vegan,new"
+        data-img="">
+        <div class="item-info">
+          <div class="item-name">Truffle Mushroom Sandwich</div>
+          <div class="item-desc-short">Sote karışık mantar, trüf yağı, ricotta...</div>
+          <div class="item-meta"><span class="tag vegan">Vejetaryen</span><span class="tag new">Yeni</span><span class="item-kcal">510 kcal</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price">₺360</div>
+          <div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Hash Brown Breakfast Sandwich"
+        data-desc="Ev yapımı hash brown, çıtır bacon, cheddar, çırpılmış yumurta, chipotle sos, İngiliz muffin"
+        data-price="₺330" data-kcal="680"
+        data-tags="popular"
+        data-img="">
+        <div class="item-info">
+          <div class="item-name">Hash Brown Breakfast Sandwich</div>
+          <div class="item-desc-short">Ev yapımı hash brown, çıtır bacon, cheddar...</div>
+          <div class="item-meta"><span class="tag popular">Popüler</span><span class="item-kcal">680 kcal</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price">₺330</div>
+          <div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Mexican Dog"
+        data-desc="Dana sosis, guacamole, pico de gallo, jalapeño, meksika peyniri, tortilla kırıkları, brioche hot dog ekmeği"
+        data-price="₺320" data-kcal="590"
+        data-tags="spicy,new"
+        data-img="">
+        <div class="item-info">
+          <div class="item-name">Mexican Dog</div>
+          <div class="item-desc-short">Dana sosis, guacamole, pico de gallo, jalapeño...</div>
+          <div class="item-meta"><span class="tag spicy">Acılı</span><span class="tag new">Yeni</span><span class="item-kcal">590 kcal</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price">₺320</div>
+          <div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Korean Slaw Dog"
+        data-desc="Dana sosis, kimchi slaw, gochujang mayo, susam, yeşil soğan, brioche hot dog ekmeği"
+        data-price="₺335" data-kcal="560"
+        data-tags="spicy"
+        data-img="">
+        <div class="item-info">
+          <div class="item-name">Korean Slaw Dog</div>
+          <div class="item-desc-short">Dana sosis, kimchi slaw, gochujang mayo...</div>
+          <div class="item-meta"><span class="tag spicy">Acılı</span><span class="item-kcal">560 kcal</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price">₺335</div>
+          <div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="allergen-note"><p>Glutensiz ekmek seçeneği mevcuttur (+₺35). Kalori değerleri tahminidir.</p></div>
+    </div>
+  </section>
+
+  <!-- ══ BOWL ══ -->
+  <section id="bowl" class="section">
+    <div class="section-hero">
+      <div class="section-hero-content">
+        <div class="section-hero-title">Bowl</div>
+        <div class="section-hero-sub">Taze, besleyici, doyurucu</div>
+      </div>
+      <div class="section-hero-gold-line"></div>
+    </div>
+    <div class="section-body">
+      <p class="section-intro">Taze malzemeler, özenle katmanlanmış. Her bowl günlük hazırlanır.</p>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="California Breakfast Bowl"
+        data-desc="Avokado, çırpılmış yumurta, cherry domates, taze mısır, black bean, lime crema, tortilla kırıkları, kinoa"
+        data-price="₺355" data-kcal="610" data-tags="popular,vegan" data-img="">
+        <div class="item-info">
+          <div class="item-name">California Breakfast Bowl</div>
+          <div class="item-desc-short">Avokado, çırpılmış yumurta, cherry domates...</div>
+          <div class="item-meta"><span class="tag popular">En Çok Sipariş</span><span class="tag vegan">Vejetaryen</span><span class="item-kcal">610 kcal</span></div>
+        </div>
+        <div class="item-right"><div class="item-price">₺355</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+      </div>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Mushroom Veggie Bowl"
+        data-desc="Sote karışık mantar, trüf yağı, kavrulmuş nohut, roka, parmesan, balzamik glaze, karabuğday"
+        data-price="₺345" data-kcal="520" data-tags="vegan,new" data-img="">
+        <div class="item-info">
+          <div class="item-name">Mushroom Veggie Bowl</div>
+          <div class="item-desc-short">Sote karışık mantar, trüf yağı, kavrulmuş nohut...</div>
+          <div class="item-meta"><span class="tag vegan">Vejetaryen</span><span class="tag new">Yeni</span><span class="item-kcal">520 kcal</span></div>
+        </div>
+        <div class="item-right"><div class="item-price">₺345</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+      </div>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Bacon Power Bowl"
+        data-desc="Çıtır bacon, haşlanmış yumurta, sweet potato, ıspanak, avokado, chipotle ranch, kahverengi pirinç"
+        data-price="₺385" data-kcal="720" data-tags="popular" data-img="">
+        <div class="item-info">
+          <div class="item-name">Bacon Power Bowl</div>
+          <div class="item-desc-short">Çıtır bacon, haşlanmış yumurta, sweet potato...</div>
+          <div class="item-meta"><span class="tag popular">Popüler</span><span class="item-kcal">720 kcal</span></div>
+        </div>
+        <div class="item-right"><div class="item-price">₺385</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+      </div>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Sucuk Brunch Bowl"
+        data-desc="Dilimlenmiş sucuk, sahanda yumurta, kaşar peyniri, közlenmiş biber, domates, bulgur, taze maydanoz"
+        data-price="₺360" data-kcal="670" data-tags="popular,new" data-img="">
+        <div class="item-info">
+          <div class="item-name">Sucuk Brunch Bowl</div>
+          <div class="item-desc-short">Dilimlenmiş sucuk, sahanda yumurta, kaşar...</div>
+          <div class="item-meta"><span class="tag popular">Popüler</span><span class="tag new">Yeni</span><span class="item-kcal">670 kcal</span></div>
+        </div>
+        <div class="item-right"><div class="item-price">₺360</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+      </div>
+
+      <div class="allergen-note"><p>Tüm bowl'lar özelleştirilebilir. Kalori değerleri tahminidir.</p></div>
+    </div>
+  </section>
+
+  <!-- ══ YAN ÜRÜNLER ══ -->
+  <section id="sides" class="section">
+    <div class="section-hero">
+      <div class="section-hero-content">
+        <div class="section-hero-title">Yan Ürünler</div>
+        <div class="section-hero-sub">Ana ürünle mükemmel uyum</div>
+      </div>
+      <div class="section-hero-gold-line"></div>
+    </div>
+    <div class="section-body">
+      <p class="section-intro">Her ana ürünle mükemmel uyum sağlar. Ayrı sipariş verilebilir.</p>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Crispy Parmesan Potatoes"
+        data-desc="Fırınlanmış çıtır patates, parmesan, sarımsak, taze biberiye, ev yapımı dip sos"
+        data-price="₺175" data-kcal="380" data-tags="vegan,popular" data-img="">
+        <div class="item-info">
+          <div class="item-name">Crispy Parmesan Potatoes</div>
+          <div class="item-desc-short">Fırınlanmış çıtır patates, parmesan, sarımsak...</div>
+          <div class="item-meta"><span class="tag vegan">Vejetaryen</span><span class="tag popular">En Çok Sipariş</span><span class="item-kcal">380 kcal</span></div>
+        </div>
+        <div class="item-right"><div class="item-price">₺175</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+      </div>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Garlic Butter Mushrooms"
+        data-desc="Tereyağı, sarımsak, taze kekik, limon, sote büyük başlık mantar, maydanoz"
+        data-price="₺190" data-kcal="210" data-tags="vegan" data-img="">
+        <div class="item-info">
+          <div class="item-name">Garlic Butter Mushrooms</div>
+          <div class="item-desc-short">Tereyağı, sarımsak, taze kekik, limon, sote mantar...</div>
+          <div class="item-meta"><span class="tag vegan">Vejetaryen</span><span class="item-kcal">210 kcal</span></div>
+        </div>
+        <div class="item-right"><div class="item-price">₺190</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+      </div>
+
+      <div class="item" onclick="openModal(this)"
+        data-name="Sweet Potato Fries"
+        data-desc="Çıtır tatlı patates kızartması, tarçın-pul biber karışımı, akçaağaç şurubu dip sos"
+        data-price="₺170" data-kcal="320" data-tags="vegan,new" data-img="">
+        <div class="item-info">
+          <div class="item-name">Sweet Potato Fries</div>
+          <div class="item-desc-short">Çıtır tatlı patates, tarçın-pul biber, akçaağaç sos...</div>
+          <div class="item-meta"><span class="tag vegan">Vegan</span><span class="tag new">Yeni</span><span class="item-kcal">320 kcal</span></div>
+        </div>
+        <div class="item-right"><div class="item-price">₺170</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+      </div>
+
+      <div class="allergen-note"><p>Yan ürünler ana siparişe +₺130'dan başlayan indirimli fiyatla eklenebilir. Kalori değerleri tahminidir.</p></div>
+    </div>
+  </section>
+
+  <!-- ══ NATA ══ -->
+  <section id="nata" class="section">
+    <div class="section-hero">
+      <div class="section-hero-content">
+        <div class="section-hero-title">Nata</div>
+        <div class="section-hero-sub">Portekiz'den ilham, günlük taze</div>
+      </div>
+      <div class="section-hero-gold-line"></div>
+    </div>
+    <div class="section-body">
+      <p class="section-intro">Her gün taze pişirilir. Klasik Portekiz geleneğinden ilham alan çıtır hamur, kremsi yumurta kreması.</p>
+
+      <div class="nata-item">
+        <div class="nata-card" onclick="openModal(this)"
+          data-name="Klasik Nata"
+          data-desc="Geleneksel tarif, çıtır yufka hamuru, saf yumurta kreması, tarçın tozu, pudra şekeri"
+          data-price="₺95 / adet" data-kcal="185" data-tags="" data-img="">
+          <div class="nata-info">
+            <div class="nata-name">Klasik Nata</div>
+            <div class="nata-desc">Çıtır yufka, yumurta kreması, tarçın, pudra şekeri</div>
+            <div class="nata-bottom"><div class="nata-price">₺95 <span style="font-family:'DM Sans';font-size:10px;color:var(--gray)">/adet</span></div><div class="nata-kcal">~185 kcal</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nata-item">
+        <div class="nata-card" onclick="openModal(this)"
+          data-name="Espresso Nata"
+          data-desc="Kremaya karışmış tek shot espresso, hafif acı-tatlı denge, tarçın serpintisi"
+          data-price="₺110 / adet" data-kcal="195" data-tags="new" data-img="">
+          <div class="nata-info">
+            <div class="nata-name">Espresso Nata</div>
+            <div class="nata-desc">Espresso kreması, acı-tatlı denge, tarçın</div>
+            <div class="nata-bottom"><div class="nata-price">₺110 <span style="font-family:'DM Sans';font-size:10px;color:var(--gray)">/adet</span></div><div class="nata-kcal">~195 kcal</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nata-item">
+        <div class="nata-card" onclick="openModal(this)"
+          data-name="Limon Nata"
+          data-desc="Limon kabuğu rendesi, limon kreması, ince çıtır hamur, pudra şekeri, taze nane"
+          data-price="₺105 / adet" data-kcal="180" data-tags="" data-img="">
+          <div class="nata-info">
+            <div class="nata-name">Limon Nata</div>
+            <div class="nata-desc">Limon kabuğu rendesi, limon kreması, taze nane</div>
+            <div class="nata-bottom"><div class="nata-price">₺105 <span style="font-family:'DM Sans';font-size:10px;color:var(--gray)">/adet</span></div><div class="nata-kcal">~180 kcal</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nata-item">
+        <div class="nata-card" onclick="openModal(this)"
+          data-name="Çikolatalı Nata"
+          data-desc="%70 bitter çikolata kreması, kakao tozu, çıtır hamur, tuz serpintisi"
+          data-price="₺115 / adet" data-kcal="210" data-tags="" data-img="">
+          <div class="nata-info">
+            <div class="nata-name">Çikolatalı Nata</div>
+            <div class="nata-desc">%70 bitter çikolata kreması, kakao, tuz serpintisi</div>
+            <div class="nata-bottom"><div class="nata-price">₺115 <span style="font-family:'DM Sans';font-size:10px;color:var(--gray)">/adet</span></div><div class="nata-kcal">~210 kcal</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nata-item">
+        <div class="nata-card" onclick="openModal(this)"
+          data-name="Yaban Mersinli Nata"
+          data-desc="Taze yaban mersini komposto, vanilinli krema, çıtır hamur, pudra şekeri"
+          data-price="₺115 / adet" data-kcal="190" data-tags="new" data-img="">
+          <div class="nata-info">
+            <div class="nata-name">Yaban Mersinli Nata</div>
+            <div class="nata-desc">Yaban mersini komposto, vanilinli krema</div>
+            <div class="nata-bottom"><div class="nata-price">₺115 <span style="font-family:'DM Sans';font-size:10px;color:var(--gray)">/adet</span></div><div class="nata-kcal">~190 kcal</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nata-item">
+        <div class="nata-card" onclick="openModal(this)"
+          data-name="Nata Tabağı × 4"
+          data-desc="Kendi seçimlerinle 4 adet nata — ikram veya paylaşım için ideal"
+          data-price="₺380 / tabak" data-kcal="740" data-tags="" data-img="">
+          <div class="nata-info">
+            <div class="nata-name">Nata Tabağı × 4</div>
+            <div class="nata-desc">Seçimlerinle 4 adet nata, paylaşım için</div>
+            <div class="nata-bottom"><div class="nata-price">₺380 <span style="font-family:'DM Sans';font-size:10px;color:var(--gray)">/tabak</span></div><div class="nata-kcal">~740 kcal</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="allergen-note"><p>Tüm natalar yumurta ve gluten içerir. Günlük pişirilir, stok tükenince satış durabilir.</p></div>
+    </div>
+  </section>
+
+  <!-- ══ COFFEE ══ -->
+  <section id="coffee" class="section">
+    <div class="section-hero">
+      <div class="section-hero-content">
+        <div class="section-hero-title">Coffee</div>
+        <div class="section-hero-sub">Single origin Etiyopya</div>
+      </div>
+      <div class="section-hero-gold-line"></div>
+    </div>
+    <div class="section-body">
+      <p class="section-intro">Single origin Etiyopya çekirdeği. Filtrelenmiş su, elle demleme seçeneği.</p>
+
+      <!-- Coffee items with sizes shown in modal -->
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Espresso" data-desc="Yoğun, aromalı, klasik"
+        data-kcal="5" data-tags=""
+        data-img=""
+        data-sizes="Tek:₺120,Çift:₺145">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Espresso</div><div class="item-desc-short">Yoğun, aromalı, klasik</div><div class="item-meta"><span class="item-kcal">5 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺120+</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Americano" data-desc="Espresso, sıcak su — sade ve güçlü"
+        data-kcal="10" data-tags="" data-img="" data-sizes="S:₺135,M:₺155">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Americano</div><div class="item-desc-short">Espresso, sıcak su — sade ve güçlü</div><div class="item-meta"><span class="item-kcal">10 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺135+</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Flat White" data-desc="Çift espresso, kadifemsi mikro köpük"
+        data-kcal="120" data-tags="popular" data-img="" data-sizes="S:₺165,M:₺190">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Flat White</div><div class="item-desc-short">Çift espresso, kadifemsi mikro köpük</div><div class="item-meta"><span class="tag popular">En Çok Sipariş</span><span class="item-kcal">120 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺165+</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Latte" data-desc="Espresso, bol süt, hafif köpük"
+        data-kcal="150" data-tags="" data-img="" data-sizes="S:₺170,M:₺195,L:₺220">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Latte</div><div class="item-desc-short">Espresso, bol süt, hafif köpük</div><div class="item-meta"><span class="item-kcal">150 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺170+</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Cappuccino" data-desc="Espresso, eşit oranda süt ve köpük, isteğe göre tarçın"
+        data-kcal="110" data-tags="" data-img="" data-sizes="S:₺165,M:₺190">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Cappuccino</div><div class="item-desc-short">Espresso, eşit oranda süt ve köpük</div><div class="item-meta"><span class="item-kcal">110 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺165+</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Cortado" data-desc="Çift espresso, eşit oranda buharlanmış süt — yoğun ama yumuşak"
+        data-kcal="60" data-tags="new" data-img="" data-sizes="Tek:₺160">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Cortado</div><div class="item-desc-short">Çift espresso, buharlanmış süt — yoğun ama yumuşak</div><div class="item-meta"><span class="tag new">Yeni</span><span class="item-kcal">60 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺160</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Filtre Kahve" data-desc="Günlük taze çekilmiş, pour-over yöntemi"
+        data-kcal="5" data-tags="" data-img="" data-sizes="Tek:₺145">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Filtre Kahve</div><div class="item-desc-short">Günlük taze çekilmiş, pour-over yöntemi</div><div class="item-meta"><span class="item-kcal">5 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺145</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Iced Latte" data-desc="Çift espresso, soğuk süt, buz — yaz klasiği"
+        data-kcal="160" data-tags="popular" data-img="" data-sizes="M:₺205,L:₺230">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Iced Latte</div><div class="item-desc-short">Çift espresso, soğuk süt, buz — yaz klasiği</div><div class="item-meta"><span class="tag popular">Popüler</span><span class="item-kcal">160 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺205+</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Iced Americano" data-desc="Espresso, soğuk su, buz — sade ve ferahlatıcı"
+        data-kcal="15" data-tags="" data-img="" data-sizes="M:₺165,L:₺185">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Iced Americano</div><div class="item-desc-short">Espresso, soğuk su, buz — sade ve ferahlatıcı</div><div class="item-meta"><span class="item-kcal">15 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺165+</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Cold Brew" data-desc="18 saat soğuk demleme, konsantre ve pürüzsüz"
+        data-kcal="20" data-tags="new" data-img="" data-sizes="M:₺220,L:₺250">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Cold Brew</div><div class="item-desc-short">18 saat soğuk demleme, konsantre ve pürüzsüz</div><div class="item-meta"><span class="tag new">Yeni</span><span class="item-kcal">20 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺220+</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Matcha Latte" data-desc="Seremoni kalitesi Japon matchası, buharlanmış süt"
+        data-kcal="175" data-tags="" data-img="" data-sizes="S:₺195,M:₺225">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Matcha Latte</div><div class="item-desc-short">Seremoni kalitesi Japon matchası, buharlanmış süt</div><div class="item-meta"><span class="item-kcal">175 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺195+</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="coffee-item" onclick="openModal(this)"
+        data-name="Sıcak Çikolata" data-desc="Belçika çikolatası, tam yağlı süt, vanilin, hafif köpük"
+        data-kcal="280" data-tags="" data-img="" data-sizes="S:₺185,M:₺210">
+        <div class="coffee-top">
+          <div class="item-info"><div class="item-name">Sıcak Çikolata</div><div class="item-desc-short">Belçika çikolatası, tam yağlı süt, vanilin</div><div class="item-meta"><span class="item-kcal">280 kcal</span></div></div>
+          <div class="item-right"><div class="item-price">₺185+</div><div class="item-chevron"><svg viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        </div>
+      </div>
+
+      <div class="allergen-note"><p>Yulaf sütü, badem sütü, hindistancevizi sütü seçenekleri mevcuttur (+₺30). Kalori değerleri orta boy için tahminidir.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-text">Mornin' &nbsp;·&nbsp; Fiyatlar KDV dahildir &nbsp;·&nbsp; Kalori değerleri tahminidir</div>
+  </footer>
+</div>
+
+</div><!-- /scroll-root -->
+
+<!-- ══ MODAL ══ -->
+<div id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div id="modal">
+    <div class="modal-drag-bar"></div>
+    <button class="modal-close" onclick="closeModal()">
+      <svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="modal-photo" id="modal-photo">
+      <div class="modal-photo-placeholder" id="modal-placeholder">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="white" stroke-width="1"/><circle cx="8.5" cy="8.5" r="1.5" stroke="white" stroke-width="1"/><path d="M21 15l-5-5L5 21" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Fotoğraf yakında eklenecek</span>
+      </div>
+      <img id="modal-img" src="" alt="" style="display:none; opacity:0" onload="this.style.opacity=1" onerror="this.style.display='none'">
+    </div>
+    <div class="modal-body">
+      <div class="modal-tags" id="modal-tags"></div>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-desc" id="modal-desc"></div>
+      <div class="modal-meta-row">
+        <div>
+          <div style="font-size:10px;color:var(--gray);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px">Fiyat</div>
+          <div class="modal-price" id="modal-price"></div>
+        </div>
+        <div class="modal-kcal-block" id="modal-kcal-block">
+          <div class="modal-kcal-val" id="modal-kcal"></div>
+          <div class="modal-kcal-lbl">kcal</div>
+        </div>
+      </div>
+      <div class="modal-sizes" id="modal-sizes"></div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+const root = document.getElementById('scroll-root');
+
+/* ── Scroll to menu ── */
+function openMenu() {
+  const mp = document.getElementById('menu-page');
+  mp.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ── Scroll back to cover ── */
+function goBack() {
+  document.getElementById('cover').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ── Tab sections ── */
+function showSection(id, btn) {
+  const current = document.querySelector('.section.active');
+  const next = document.getElementById(id);
+  if (current === next) return;
+  current.classList.add('tab-exit');
+  setTimeout(() => {
+    current.classList.remove('active', 'tab-exit');
+    next.classList.add('tab-enter', 'active');
+    requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove('tab-enter')));
+    document.getElementById('menu-page').scrollTo({ top: 0, behavior: 'instant' });
+  }, 180);
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+/* ── Modal ── */
+const tagLabels  = { popular: 'En Çok Sipariş', vegan: 'Vejetaryen', new: 'Yeni', spicy: 'Acılı' };
+const tagClasses = { popular: 'popular', vegan: 'vegan', new: 'new', spicy: 'spicy' };
+
+function openModal(el) {
+  const d = el.dataset;
+  document.getElementById('modal-title').textContent = d.name  || '';
+  document.getElementById('modal-desc').textContent  = d.desc  || '';
+  document.getElementById('modal-price').textContent = d.price || '';
+
+  const kcalBlock = document.getElementById('modal-kcal-block');
+  if (d.kcal) { document.getElementById('modal-kcal').textContent = '~' + d.kcal; kcalBlock.style.display = 'block'; }
+  else { kcalBlock.style.display = 'none'; }
+
+  const tagsEl = document.getElementById('modal-tags');
+  tagsEl.innerHTML = '';
+  if (d.tags) d.tags.split(',').filter(Boolean).forEach(t => {
+    const s = document.createElement('span');
+    s.className = 'tag ' + (tagClasses[t] || '');
+    s.textContent = tagLabels[t] || t;
+    tagsEl.appendChild(s);
+  });
+
+  const img = document.getElementById('modal-img');
+  const ph  = document.getElementById('modal-placeholder');
+  if (d.img && d.img.trim()) {
+    img.src = d.img.trim(); img.style.display = 'block'; img.style.opacity = '0';
+    ph.style.display = 'none';
+  } else {
+    img.style.display = 'none'; img.src = ''; ph.style.display = 'flex';
+  }
+
+  const sizesEl = document.getElementById('modal-sizes');
+  sizesEl.innerHTML = '';
+  const priceRow = document.getElementById('modal-price').closest('.modal-meta-row');
+  if (d.sizes) {
+    d.sizes.split(',').forEach(pair => {
+      const [label, price] = pair.split(':');
+      const chip = document.createElement('div');
+      chip.className = 'modal-size-chip';
+      chip.innerHTML = `<span class="modal-size-label">${label}</span><span class="modal-size-price">${price}</span>`;
+      sizesEl.appendChild(chip);
+    });
+    priceRow.style.display = d.kcal ? 'flex' : 'none';
+  } else {
+    priceRow.style.display = 'flex';
+  }
+
+  const mo = document.getElementById('modal-overlay');
+  mo.style.display = 'flex';
+  requestAnimationFrame(() => mo.classList.add('open'));
+  document.body.style.overflow = 'hidden';
+  root.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const mo = document.getElementById('modal-overlay');
+  mo.classList.remove('open');
+  setTimeout(() => {
+    mo.style.display = 'none';
+    document.body.style.overflow = '';
+    root.style.overflow = '';
+  }, 420);
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+let touchStartY = 0;
+document.getElementById('modal').addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+document.getElementById('modal').addEventListener('touchend', e => {
+  if (e.changedTouches[0].clientY - touchStartY > 80) closeModal();
+}, { passive: true });
+</script>
+</body>
+</html>
